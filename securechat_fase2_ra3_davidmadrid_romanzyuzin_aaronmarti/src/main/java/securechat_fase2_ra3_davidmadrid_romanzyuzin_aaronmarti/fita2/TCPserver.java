@@ -28,15 +28,15 @@ public class TCPserver {
                      BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); // Per llegir dades del client
                      PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) { // Per enviar dades al client
 
-                System.out.println(ANSI_CYAN + "Client connectat des de: " + socket.getInetAddress() + ANSI_RESET); // Mostrar adreça del client
+                System.out.println(ANSI_CYAN + "Client connectat des de: " + ANSI_RESET + socket.getInetAddress() + ANSI_RESET); // Mostrar adreça del client
 
                 // Llegir missatge del client 
                 String missatge = in.readLine(); // Espera un missatge del client
-                System.out.println(ANSI_CYAN + "Missatge rebut: " + missatge + ANSI_RESET); // Mostrar missatge rebut
+                System.out.println(ANSI_CYAN + "Missatge rebut: " + ANSI_RESET + missatge + ANSI_RESET); // Mostrar missatge rebut
 
                 // Retornar el missatge (Eco)
-                out.println("Eco: " + missatge); // Enviar resposta al client
-                System.out.println(ANSI_CYAN + "Resposta enviada al client." + ANSI_RESET); // Confirmació d'enviament
+                out.println(missatge); // Enviar resposta al client
+                System.out.println(ANSI_GREEN + "Resposta enviada al client." + ANSI_RESET); // Confirmació d'enviament
             }
         } catch (IOException e) {
             System.err.println("Error al servidor: " + e.getMessage());
