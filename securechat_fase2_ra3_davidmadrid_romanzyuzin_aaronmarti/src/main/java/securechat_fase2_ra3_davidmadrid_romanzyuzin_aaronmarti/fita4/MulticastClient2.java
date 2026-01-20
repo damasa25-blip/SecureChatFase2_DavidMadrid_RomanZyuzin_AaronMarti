@@ -4,7 +4,7 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 
-public class MulticastClient {
+public class MulticastClient2 {
 
   public static void main(String[] args) {
 
