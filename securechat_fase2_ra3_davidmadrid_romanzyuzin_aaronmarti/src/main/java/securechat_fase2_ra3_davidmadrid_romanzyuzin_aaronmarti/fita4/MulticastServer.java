@@ -17,13 +17,10 @@ public class MulticastServer {
                 String missatge = "Noticia importante para todos los clientes!";
                 buf = missatge.getBytes();
 
-                // 2. El paquete va dirigido a la IP del grupo, no a un cliente concreto
                 DatagramPacket packet = new DatagramPacket(buf, buf.length, ipgrupo, port);
 
-                // 3. ¡Lanzamos el mensaje al grupo!
                 socket.send(packet);
                 System.out.println("Mensaje enviado al grupo " + ipgrupo + ": " + missatge);
-                // Esperamos 5 segundos antes de enviar el siguiente para que nos de tiempo a ver las capturas
                 Thread.sleep(5000);
             }
         } catch (Exception e) {
