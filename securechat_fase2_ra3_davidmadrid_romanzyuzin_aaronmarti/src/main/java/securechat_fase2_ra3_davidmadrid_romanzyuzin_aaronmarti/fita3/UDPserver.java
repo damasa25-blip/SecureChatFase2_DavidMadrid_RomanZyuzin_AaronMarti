@@ -7,7 +7,7 @@ public class UDPserver {
 
     public static void main(String[] args) {
 
-        int port = 12345; // Port per al servidor UDP
+        int port = 12346; // Port per al servidor UDP
         byte[] buf = new byte[1024];
 
         try (DatagramSocket socket = new DatagramSocket(port)) {
