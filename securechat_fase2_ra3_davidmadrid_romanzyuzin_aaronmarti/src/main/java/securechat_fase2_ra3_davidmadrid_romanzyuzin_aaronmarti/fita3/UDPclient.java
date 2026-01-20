@@ -6,8 +6,15 @@ import java.net.InetAddress;
 
 public class UDPclient {
 
+    // Colors ANSI
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_YELLOW = "\u001B[33m"; 
+    public static final String ANSI_CYAN = "\u001B[36m";   
+    public static final String ANSI_GREEN = "\u001B[32m";
+
     public static void main(String[] args) {
 
+        System.out.println("");
         String missatge = "Hola des del client UDP";
         byte[] buf = missatge.getBytes();
         int port = 12346;
@@ -17,9 +24,8 @@ public class UDPclient {
         InetAddress ip = InetAddress.getByName("localhost");
         DatagramPacket packetEnvio = new DatagramPacket(buf, buf.length, ip, port);
     
-
         socket.send(packetEnvio);
-        System.out.println("Mensaje enviado...");
+        System.out.println(ANSI_CYAN + "Mensaje enviado a " + ANSI_RESET + ip.getHostAddress() + ":" + port + ANSI_RESET );
 
 
         byte[] receptorBuf = new byte[1024];
@@ -29,7 +35,7 @@ public class UDPclient {
     
 
         String texto = new String(respuestaPacket.getData(), 0, respuestaPacket.getLength());
-        System.out.println("Notificación del servidor: " + texto);
+        System.out.println(ANSI_GREEN + "Notificación del servidor: " + ANSI_RESET + texto);
 
     } catch (Exception e) {
         System.err.println("Error en la comunicación: " + e.getMessage());
