@@ -1,15 +1,16 @@
-package securechat_fase2_ra3_davidmadrid_romanzyuzin_aaronmarti.fita5;
+package securechat_fase2_ra3_davidmadrid_romanzyuzin_aaronmarti.fita6;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ChatServidor {
+
     // Lista de escritores para enviar mensajes a todos
-    public static List<PrintWriter> escritores = new CopyOnWriteArrayList<>();
+    public static Map<String, PrintWriter> mapaClientes = new ConcurrentHashMap<>();
 
     public static void main(String[] args) {
         int port = 12345;
@@ -23,7 +24,7 @@ public class ChatServidor {
 
                 // 2. Creamos su canal de salida y lo añadimos a la lista
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                escritores.add(out);
+                mapaClientes.put(socket.getInetAddress().toString(), out);
 
                 // 3. Lanzamos un hilo para que escuche a este cliente concreto
                 new ClientHandler(socket, out).start();
@@ -34,9 +35,13 @@ public class ChatServidor {
     }
 
     // El BROADCAST: Envía el mensaje a todos los de la lista
-    public static void broadcast(String msg) {
-        for (PrintWriter writer : escritores) {
-            writer.println(msg);
+    public static void broadcast(String emisor, String texto) {
+        // Formateamos el mensaje según el protocolo decidido
+        String mensajeProtocolo = emisor + ": " + texto;
+
+        // Recorremos solo los valores (los PrintWriters)
+        for (PrintWriter writer : mapaClientes.values()) {
+            writer.println(mensajeProtocolo);
         }
     }
 }
