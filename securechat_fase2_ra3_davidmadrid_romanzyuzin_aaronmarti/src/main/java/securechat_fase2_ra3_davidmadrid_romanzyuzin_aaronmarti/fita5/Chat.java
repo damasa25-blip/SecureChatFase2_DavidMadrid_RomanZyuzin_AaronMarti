@@ -10,7 +10,7 @@ public class Chat {
         Cliente.add(new Cliente("Aaron", "localhost", 12345));
         
         for (Cliente c : Cliente) {
-            ChatCliente clientThread = new ChatCliente(c.getNom(), c.getHost(), c.getPort());
+            ChatCliente clientThread = new ChatCliente();
             clientThread.start();
         }
     }

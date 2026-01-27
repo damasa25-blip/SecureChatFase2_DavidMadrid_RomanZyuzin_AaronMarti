@@ -20,4 +20,9 @@ public class Cliente extends Thread {
     public int getPort() {
         return port;
     }
+    
+    @Override
+    public void run() {
+        ChatCliente.main(null, this.nom);
+    }
 }

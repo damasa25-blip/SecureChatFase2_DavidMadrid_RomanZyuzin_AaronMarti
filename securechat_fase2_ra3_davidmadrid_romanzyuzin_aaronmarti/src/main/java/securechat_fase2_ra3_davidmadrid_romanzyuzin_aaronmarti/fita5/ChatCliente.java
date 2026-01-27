@@ -12,11 +12,14 @@ public class ChatCliente {
     public static final String ANSI_YELLOW = "\u001B[33m"; // Color INFORMATIU
     public static final String ANSI_CYAN = "\u001B[36m";   // Color ENUNCIAT
     public static final String ANSI_GREEN = "\u001B[32m";  // Color RESPUESTA
+    public static String nombre = "";
 
     public static void main(String[] args) {
         System.out.println("");
+        
         int port = 12345; // Port del servidor TCP
         String host = "localhost"; // Adreça del servidor (localhost per a proves locals
+        nombre = this.nombre;
         System.out.println(ANSI_YELLOW + "--- FITA 2: Client TCP ---" + ANSI_RESET);
 
         try (Socket socket = new Socket(host, port); 
