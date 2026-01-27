@@ -8,11 +8,17 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class ChatCliente {
+    // --- Codi ANSI per colors ---
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_YELLOW = "\u001B[33m"; // Color INFORMATIU
+    public static final String ANSI_CYAN = "\u001B[36m";   // Color ENUNCIAT
+    public static final String ANSI_GREEN = "\u001B[32m";  // Color RESPUESTA
+
     public static void main(String[] args) {
         String host = "localhost";
         int port = 12345;
 
-        System.out.println("\u001B[33mCliente Abierto\u001B[0m");
+        System.out.println(ANSI_YELLOW + "Cliente Abierto" + ANSI_RESET);
         Scanner sc = new Scanner(System.in);
         boolean conectado = false;
 
@@ -21,7 +27,7 @@ public class ChatCliente {
              BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
                 
             if(!conectado){
-                System.out.println("\u001B[32mConnectat al servidor de chat a " + host + ":" + port + "\u001B[0m");
+                System.out.println(ANSI_GREEN + "Connectat al servidor de chat a " + host + ":" + port + ANSI_RESET);
                 conectado = true;
             }
             System.out.println("Introdueix el teu nom amb el comando LOGIN (ex: LOGIN/nom): ");

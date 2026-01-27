@@ -8,19 +8,25 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ChatServidor {
+    // --- Codi ANSI per colors ---
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_YELLOW = "\u001B[33m"; // Color INFORMATIU
+    public static final String ANSI_CYAN = "\u001B[36m";   // Color ENUNCIAT
+    public static final String ANSI_GREEN = "\u001B[32m";  // Color RESPUESTA
 
     // Lista de escritores para enviar mensajes a todos
     public static Map<String, PrintWriter> mapaClientes = new ConcurrentHashMap<>();
 
     public static void main(String[] args) {
         int port = 12345;
-        System.out.println("\u001B[33mServidor Abierto y escuchando...\u001B[0m");
+        System.out.println("");
+        System.out.println(ANSI_YELLOW + "Servidor Abierto y escuchando..." + ANSI_RESET);
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             while (true) {
                 // 1. Aceptamos al cliente
                 Socket socket = serverSocket.accept();
-                System.out.println("\u001B[36mNuevo cliente conectado desde: \u001B[0m" + socket.getInetAddress());
+                System.out.println(ANSI_CYAN + "Nuevo cliente conectado desde: " + ANSI_RESET + socket.getInetAddress());
 
                 // 2. Creamos su canal de salida y lo añadimos a la lista
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);

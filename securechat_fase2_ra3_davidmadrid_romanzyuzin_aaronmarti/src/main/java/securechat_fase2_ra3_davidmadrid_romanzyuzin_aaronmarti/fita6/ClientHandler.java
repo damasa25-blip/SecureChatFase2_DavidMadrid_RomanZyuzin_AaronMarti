@@ -8,6 +8,12 @@ import java.net.Socket;
 
 class ClientHandler extends Thread {
 
+    // --- Codi ANSI per colors ---
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_YELLOW = "\u001B[33m"; // Color INFORMATIU
+    public static final String ANSI_CYAN = "\u001B[36m";   // Color ENUNCIAT
+    public static final String ANSI_GREEN = "\u001B[32m";  // Color RESPUESTA
+
     private Socket socket;
     private PrintWriter out;
     private String nombreUsuario = null;
@@ -51,13 +57,14 @@ class ClientHandler extends Thread {
             limpiarConexion();
         }
     }
+
     private void manejarLogin(String nombre) {
     if (nombre.isEmpty() || ChatServidor.mapaClientes.containsKey(nombre)) {
         out.println("ERROR|Nombre no válido o ya ocupado");
     } else {
         this.nombreUsuario = nombre;
         ChatServidor.mapaClientes.put(nombre, out);
-        out.println("OK|Bienvenido " + nombre);
+        out.println(ANSI_GREEN + "OK|" + ANSI_RESET + "Bienvenido "  + nombre);
         String msg = "se ha unido al chat.";
         ChatServidor.broadcast(nombre, msg);
     }
