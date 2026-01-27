@@ -18,7 +18,7 @@ public class ChatCliente {
     public static void main(String[] args) {
         String host = "localhost";
         int port = 12345;
-
+        System.out.println("");
         System.out.println("\u001B[33mCliente Abierto\u001B[0m");
         Scanner sc = new Scanner(System.in);
         System.out.print("Introdueix el teu nom: ");
@@ -30,7 +30,7 @@ public class ChatCliente {
              BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
             if(!conectado){
-                System.out.println("\u001B[32mConnectat al servidor de chat a " + host + ":" + port + "\u001B[0m");
+                System.out.println(ANSI_GREEN + "Connectat al servidor de chat a " + host + ":" + port + ANSI_RESET);
                 conectado = true;
             }
             // HILO PARA RECIBIR (Lectura del servidor)
@@ -41,14 +41,14 @@ public class ChatCliente {
                         System.out.println("\n" + r);
                     }
                 } catch (IOException e) { 
-                    System.err.println("Conexión cerrada.");
+                    System.err.println(ANSI_YELLOW + "Conexión cerrada." + ANSI_RESET);
                 }
             }).start();
 
             // HILO PRINCIPAL PARA ENVIAR (Escritura del usuario)
             while (true) {
                 String msg = sc.nextLine();
-                out.println("\u001B[36m" + nom + "\u001B[0m: " + msg);
+                out.println(ANSI_CYAN + nom + ANSI_RESET + ": " + msg);
             }
 
         } catch (IOException e) {
