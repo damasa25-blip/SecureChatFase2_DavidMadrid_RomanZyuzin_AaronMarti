@@ -30,8 +30,8 @@ public class ChatServidor {
 
                 // 2. Creamos su canal de salida y lo añadimos a la lista
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                mapaClientes.put(socket.getInetAddress().toString(), out);
-
+                //mapaClientes.put(socket.getInetAddress().toString(), out);
+                
                 // 3. Lanzamos un hilo para que escuche a este cliente concreto
                 new ClientHandler(socket, out).start();
             }

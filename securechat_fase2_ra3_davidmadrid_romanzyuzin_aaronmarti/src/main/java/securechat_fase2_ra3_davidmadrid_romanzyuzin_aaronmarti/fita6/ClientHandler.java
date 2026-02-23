@@ -33,7 +33,7 @@ class ClientHandler extends Thread {
                 String[] partes = linea.split("/", 2);
                 String comando = partes[0].toUpperCase();
                 String datos = (partes.length > 1) ? partes[1] : "";
-                out.println("Recibido comando: " + comando);
+                out.println(ANSI_GREEN + "Recibido comando: " + ANSI_RESET + comando);
 
                 switch (comando) {
                     case "LOGIN":
@@ -48,7 +48,7 @@ class ClientHandler extends Thread {
                     case "QUIT":
                         return; // Sale del bucle y cierra
                     default:
-                        out.println("ERROR|Comando no reconocido");
+                        out.println(ANSI_YELLOW + "ERROR|Comando no reconocido" + ANSI_RESET);
                 }
             }
         } catch (IOException e) {
@@ -60,7 +60,7 @@ class ClientHandler extends Thread {
 
     private void manejarLogin(String nombre) {
     if (nombre.isEmpty() || ChatServidor.mapaClientes.containsKey(nombre)) {
-        out.println("ERROR|Nombre no válido o ya ocupado");
+        out.println(ANSI_YELLOW + "ERROR|Nombre no válido o ya ocupado" + ANSI_RESET);
     } else {
         this.nombreUsuario = nombre;
         ChatServidor.mapaClientes.put(nombre, out);
@@ -73,7 +73,7 @@ class ClientHandler extends Thread {
     private void manejarMensaje(String mensaje) {
         
         if (this.nombreUsuario == null) {
-            out.println("ERROR|Debes iniciar sesión primero");
+            out.println(ANSI_YELLOW + "ERROR|Debes iniciar sesión primero" + ANSI_RESET);
             return;
         }
         ChatServidor.broadcast(this.nombreUsuario, mensaje);
@@ -81,7 +81,7 @@ class ClientHandler extends Thread {
 
     private void manejarListar() {
         if (this.nombreUsuario == null) {
-            out.println("ERROR|Debes iniciar sesión primero");
+            out.println(ANSI_YELLOW + "ERROR|Debes iniciar sesión primero" + ANSI_RESET);
             return;
         }
         StringBuilder lista = new StringBuilder("LIST|");
@@ -92,7 +92,7 @@ class ClientHandler extends Thread {
         if (lista.length() > 5) {
             lista.setLength(lista.length() - 1);
         }
-        out.println(lista.toString());
+        out.println(ANSI_GREEN + lista.toString() + ANSI_RESET);
     }
 
     private void limpiarConexion() {
