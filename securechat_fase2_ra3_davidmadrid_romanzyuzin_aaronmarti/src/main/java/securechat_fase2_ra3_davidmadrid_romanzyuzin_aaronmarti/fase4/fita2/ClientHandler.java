@@ -55,8 +55,6 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
         try {
-            sendWelcomeMessage();
-
             // PASO 2: Esperar clave AES cifrada del cliente
             String message = input.readLine();
             
@@ -73,6 +71,9 @@ public class ClientHandler implements Runnable {
                     keyExchangeCompleted = true;
                     
                     output.println("KEY_EXCHANGE_OK");
+                    
+                    // Enviar bienvenida DESPUÉS del intercambio de claves
+                    sendWelcomeMessage();
                     
                     System.out.println("[Servidor] Intercambio de claves completado con cliente " + 
                                      clientSocket.getInetAddress());
